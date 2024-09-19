@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,81 +10,74 @@
     <div class="container">
         <h1>Formulário de Peritagem</h1>
         <form id="peritagemForm">
-            <label for="cliente">Nome do Cliente:</label>
-            <input type="text" id="cliente" name="cliente" required>
+            <label for="nomeCliente">Nome do Cliente:</label>
+            <input type="text" id="nomeCliente" name="nomeCliente">
 
-            <label for="equipamento">Nome do Equipamento:</label>
-            <input type="text" id="equipamento" name="equipamento" required>
+            <label for="nomeEquipamento">Nome do Equipamento:</label>
+            <input type="text" id="nomeEquipamento" name="nomeEquipamento">
 
+            <label for="ss">SS:</label>
             <div class="input-group">
-                <div class="input-wrapper">
-                    <label for="ss">Número SS:</label>
-                    <input type="text" id="ss" name="ss" required>
-                </div>
-                <div class="input-wrapper">
-                    <label for="id">ID:</label>
-                    <select id="id" name="id">
-                        <!-- IDs de 1 a 50 -->
-                        <option value="">Selecione</option>
-                        <script>
-                            for (let i = 1; i <= 50; i++) {
-                                document.write('<option value="' + i + '">' + i + '</option>');
-                            }
-                        </script>
-                    </select>
-                </div>
+                <input type="text" id="ss" name="ss">
+                <select id="id" name="id">
+                    <option value="">Selecione o ID</option>
+                    <!-- Opções de 1 a 50 -->
+                    <script>
+                        for (let i = 1; i <= 50; i++) {
+                            document.write(`<option value="${i}">${i}</option>`);
+                        }
+                    </script>
+                </select>
             </div>
 
-            <label for="responsavel">Nome do Responsável:</label>
-            <input type="text" id="responsavel" name="responsavel" required>
+            <label for="responsavel">Responsável pela Peritagem:</label>
+            <input type="text" id="responsavel" name="responsavel">
 
-            <label for="data">Data da Peritagem:</label>
-            <input type="date" id="data" name="data" required>
+            <label for="dataPeritagem">Data da Peritagem:</label>
+            <input type="date" id="dataPeritagem" name="dataPeritagem" value="" readonly>
 
-            <label for="pecas">Selecionar Peça:</label>
-            <select id="pecas" name="pecas" onchange="mostrarOpcoes()">
-                <option value="">Selecione</option>
+            <label for="peça">Selecione a Peça:</label>
+            <select id="peça" name="peça">
+                <option value="">Selecione uma peça</option>
                 <option value="haste">Haste</option>
                 <option value="camisa">Camisa</option>
                 <option value="olhal">Olhal</option>
                 <option value="flange">Flange</option>
                 <option value="fundo">Fundo</option>
                 <option value="embolo">Êmbolo</option>
-                <option value="espaco">Espaçador</option>
-                <option value="vedacao">Jogo de Vedação</option>
+                <option value="espacoador">Espaçador</option>
+                <option value="jogoVedacao">Jogo de Vedação</option>
             </select>
 
-            <div id="opcoesPeca" class="hidden">
-                <label for="acoes">Ações:</label>
-                <select id="acoes" name="acoes" multiple>
-                    <!-- Opções vão ser preenchidas pelo JavaScript -->
-                </select>
+            <div id="opcoesPeça" class="hidden">
+                <div id="infoPeca"></div>
+                <label for="diametro">Diâmetro (mm):</label>
+                <input type="number" id="diametro" name="diametro">
+                
+                <label for="comprimento">Comprimento (mm):</label>
+                <input type="number" id="comprimento" name="comprimento">
 
-                <label for="dimensoes">Dimensões:</label>
-                <input type="number" id="diametro" name="diametro" placeholder="Diâmetro (mm)">
-                <input type="number" id="comprimento" name="comprimento" placeholder="Comprimento (mm)">
-                <input type="number" id="largura" name="largura" placeholder="Largura (mm)">
+                <label for="largura">Largura (mm):</label>
+                <input type="number" id="largura" name="largura">
             </div>
 
-            <button type="button" onclick="adicionarPeca()">Adicionar Peça</button>
+            <button type="button" onclick="adicionarPeca()">Salvar Peça</button>
         </form>
 
-        <table id="tabelaPecas">
+        <table id="tabelaResumo">
             <thead>
                 <tr>
                     <th>Peça</th>
-                    <th>Ações</th>
                     <th>Diâmetro (mm)</th>
                     <th>Comprimento (mm)</th>
                     <th>Largura (mm)</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Linhas serão adicionadas pelo JavaScript -->
             </tbody>
         </table>
     </div>
-
     <script src="index.js"></script>
 </body>
 </html>
