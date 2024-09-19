@@ -1,87 +1,99 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Peritagem</title>
-    <link rel="stylesheet" href="index.css"> <!-- Link para o CSS -->
+    <link rel="stylesheet" href="index.css">
 </head>
-
 <body>
     <div class="container">
         <h1>Formulário de Peritagem</h1>
-
         <form id="peritagemForm">
-            <div class="form-group">
-                <label for="cliente">Nome do Cliente:</label>
-                <input type="text" id="cliente" name="cliente" required>
-            </div>
+            <label for="nomeCliente">Nome do Cliente:</label>
+            <input type="text" id="nomeCliente" name="nomeCliente" required><br><br>
 
-                <div class="form-group">
-                <label for="equipamento">Nome do Equipamento:</label>
-                <input type="text" id="equipamento" name="equipamento" required>
-            </div>
+            <label for="nomeEquipamento">Nome do Equipamento:</label>
+            <input type="text" id="nomeEquipamento" name="nomeEquipamento" required><br><br>
 
-            <div class="ss-id-container">
-                <div class="ss-container form-group">
-                    <label for="ss">SS:</label>
-                    <input type="text" id="ss" name="ss" required>
-                </div>
-                <div class="id-container form-group">
-                    <label for="id">ID:</label>
-                    <select id="id" name="id" required></select>
-                </div>
-            </div>
+            <label for="ss">SS:</label>
+            <input type="text" id="ss" name="ss" required><br><br>
 
-            <div class="form-group">
-                <label for="data">Data da Peritagem:</label>
-                <input type="date" id="data" name="data" readonly>
-            </div>
+            <label for="id">ID:</label>
+            <select id="id" name="id" required>
+                <!-- Opções de ID de 1 a 50 -->
+                <script>
+                    for (let i = 1; i <= 50; i++) {
+                        document.write(`<option value="${i}">${i}</option>`);
+                    }
+                </script>
+            </select><br><br>
 
-            <div class="form-group">
-                <label for="tecnico">Técnico Responsável:</label>
-                <input type="text" id="tecnico" name="tecnico" required>
-            </div>
+            <label for="dataPeritagem">Data da Peritagem:</label>
+            <input type="date" id="dataPeritagem" name="dataPeritagem" required><br><br>
 
-            <div class="form-group">
-                <label for="peçaSelect">Selecione a Peça:</label>
-                <select id="peçaSelect" name="peça" onchange="showOptions()" required>
-                    <option value="" disabled selected>Selecione uma peça</option>
-                    <option value="haste">Haste</option>
-                    <option value="camisa">Camisa</option>
-                    <option value="olhal">Olhal</option>
-                    <option value="flange">Flange</option>
-                    <option value="fundo">Fundo</option>
-                    <option value="embolo">Êmbolo</option>
-                    <option value="espaco">Espaçador</option>
-                    <option value="bucha">Bucha Guia</option>
-                    <option value="vedacao">Jogo de Vedação</option>
-                </select>
-            </div>
+            <label for="tipoPeca">Tipo de Peça:</label>
+            <select id="tipoPeca" name="tipoPeca" required>
+                <option value="">Selecione</option>
+                <option value="haste">Haste</option>
+                <option value="camisa">Camisa</option>
+                <option value="olhal">Olhal</option>
+                <option value="flange">Flange</option>
+                <option value="fundo">Fundo</option>
+                <option value="embolo">Êmbolo</option>
+                <option value="espacoador">Espaçador</option>
+                <option value="jogo_vedacao">Jogo de Vedação</option>
+            </select><br><br>
 
-            <div class="form-group" id="peçaOptions"></div>
+            <div id="acoesPecaContainer">
+                <!-- As opções de ações serão inseridas aqui pelo JavaScript -->
+            </div><br><br>
 
-            <button type="button" onclick="addPiece()">Salvar Peça</button>
+            <label for="diamentro">Diâmetro:</label>
+            <input type="text" id="diamentro" name="diamentro"><br><br>
+
+            <label for="comprimento">Comprimento:</label>
+            <input type="text" id="comprimento" name="comprimento"><br><br>
+
+            <label for="largura">Largura:</label>
+            <input type="text" id="largura" name="largura"><br><br>
+
+            <label for="jogoVedacao">Jogo de Vedação:</label>
+            <select id="jogoVedacao" name="jogoVedacao">
+                <option value="">Selecione</option>
+                <option value="substituir">Substituir</option>
+                <option value="cliente_fornecer">Cliente Vai Fornecer</option>
+            </select><br><br>
+
+            <label for="observacoes">Observações:</label><br>
+            <textarea id="observacoes" name="observacoes" rows="4" cols="50"></textarea><br><br>
+
+            <button type="button" id="adicionarPeca">Adicionar Peça</button>
         </form>
 
-        <table id="resumoTable">
+        <h2>Resumo das Peças</h2>
+        <table id="pecasTabela">
             <thead>
                 <tr>
-                    <th>Peça</th>
-                    <th>Opções</th>
+                    <th>Nome do Cliente</th>
+                    <th>Nome do Equipamento</th>
+                    <th>SS</th>
+                    <th>ID</th>
+                    <th>Data da Peritagem</th>
+                    <th>Tipo de Peça</th>
+                    <th>Ações</th>
                     <th>Diâmetro</th>
                     <th>Comprimento</th>
                     <th>Largura</th>
+                    <th>Jogo de Vedação</th>
+                    <th>Observações</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Peças adicionadas serão exibidas aqui -->
+                <!-- As linhas serão adicionadas pelo JavaScript -->
             </tbody>
         </table>
     </div>
-
-    <script src="index.js"></script> <!-- Link para o JavaScript -->
+    <script src="index.js"></script>
 </body>
-
 </html>
