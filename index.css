@@ -1,18 +1,19 @@
 /* index.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f4f4f9;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 800px;
+    width: 80%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 h1 {
@@ -23,30 +24,42 @@ h1 {
 form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 label {
-    margin-top: 10px;
     font-weight: bold;
 }
 
-input, select, button {
-    margin-top: 5px;
-    padding: 10px;
-    border: 1px solid #ddd;
+input[type="text"], input[type="number"], input[type="date"], select {
+    width: 100%;
+    padding: 8px;
     border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 button {
-    background-color: #007bff; /* Cor do botão */
-    color: #fff;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    margin-top: 20px;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #0056b3; /* Cor do botão quando hover */
+    background-color: #0056b3;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-wrapper {
+    flex: 1;
 }
 
 .hidden {
@@ -59,15 +72,12 @@ table {
     margin-top: 20px;
 }
 
-table, th, td {
+table th, table td {
+    padding: 10px;
+    text-align: left;
     border: 1px solid #ddd;
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-}
-
-th {
+table th {
     background-color: #f4f4f4;
 }
