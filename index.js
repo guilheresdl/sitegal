@@ -1,73 +1,84 @@
-/* index.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
+// index.js
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+document.addEventListener('DOMContentLoaded', function() {
+    // Preencher IDs de 1 a 50 no select
+    const idSelect = document.getElementById('id');
+    for (let i = 1; i <= 50; i++) {
+        let option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        idSelect.appendChild(option);
+    }
 
-h1 {
-    text-align: center;
-    color: #333;
-}
+    // Preencher data atual no campo de data
+    const dateInput = document.getElementById('date');
+    dateInput.value = new Date().toISOString().split('T')[0];
 
-form {
-    display: flex;
-    flex-direction: column;
-}
+    // Adicionar evento para atualizar opções de peça
+    document.getElementById('part-type').addEventListener('change', function() {
+        const partType = this.value;
+        const partOptions = document.getElementById('part-options');
+        partOptions.innerHTML = ''; // Limpar opções anteriores
 
-label {
-    margin-top: 10px;
-    font-weight: bold;
-}
+        if (partType) {
+            // Configura opções e dimensões com base no tipo de peça selecionado
+            const options = {
+                haste: ['Fabricar', 'Cromar', 'Rec. Rosca'],
+                camisa: ['Fabricar', 'Brunir', 'Rec. Rosca'],
+                olhal: ['Fabricar', 'Rec. Furo', 'Rec. Rosca'],
+                flange: ['Fabricar', 'Recuperar'],
+                fundo: ['Fabricar', 'Rec. Olhal'],
+                embolo: ['Fabricar', 'Rec. Olhal', 'Rec. Rosca'],
+                espaco: ['Fabricar', 'Recuperar'],
+                vedacao: ['Substituir', 'Cliente Vai Fornecer']
+            };
 
-input, select, button {
-    margin-top: 5px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+            const dimensions = partType !== 'vedacao' ? `
+                <label for="diameter">Diâmetro (mm):</label>
+                <input type="number" id="diameter" name="diameter" step="0.1">
 
-button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-}
+                <label for="length">Comprimento (mm):</label>
+                <input type="number" id="length" name="length" step="0.1">
 
-button:hover {
-    background-color: #218838;
-}
+                <label for="width">Largura (mm):</label>
+                <input type="number" id="width" name="width" step="0.1">
+            ` : '';
 
-.hidden {
-    display: none;
-}
+            partOptions.innerHTML = `
+                <label for="actions">Ações Disponíveis:</label>
+                <select id="actions" name="actions" multiple>
+                    ${options[partType].map(action => `<option value="${action}">${action}</option>`).join('')}
+                </select>
+                ${dimensions}
+            `;
+            partOptions.classList.remove('hidden');
+        } else {
+            partOptions.classList.add('hidden');
+        }
+    });
+});
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
+function addPart() {
+    const partType = document.getElementById('part-type').value;
+    const actions = Array.from(document.getElementById('actions').selectedOptions).map(option => option.value).join(', ');
+    const diameter = document.getElementById('diameter') ? document.getElementById('diameter').value : '';
+    const length = document.getElementById('length') ? document.getElementById('length').value : '';
+    const width = document.getElementById('width') ? document.getElementById('width').value : '';
 
-table, th, td {
-    border: 1px solid #ddd;
-}
+    if (partType && actions) {
+        const table = document.getElementById('summary-table').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
 
-th, td {
-    padding: 10px;
-    text-align: left;
-}
+        newRow.insertCell().textContent = partType.charAt(0).toUpperCase() + partType.slice(1);
+        newRow.insertCell().textContent = actions;
+        newRow.insertCell().textContent = diameter;
+        newRow.insertCell().textContent = length;
+        newRow.insertCell().textContent = width;
 
-th {
-    background-color: #f4f4f4;
+        // Resetar formulário
+        document.getElementById('inspection-form').reset();
+        document.getElementById('part-options').classList.add('hidden');
+    } else {
+        alert('Por favor, preencha todas as informações necessárias.');
+    }
 }
