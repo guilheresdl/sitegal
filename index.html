@@ -24,24 +24,21 @@
                 <label for="ss">SS:</label>
                 <div class="ss-id-group">
                     <input type="text" id="ss" name="ss" class="ss-input" required>
-                    <div class="id-select-group">
-                        <label for="id" class="id-label">ID</label>
-                        <select id="id" name="id" class="id-select">
-                            <option value="">Selecione</option>
-                            <!-- Gerar opções de 1 a 50 -->
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    var select = document.getElementById('id');
-                                    for (var i = 1; i <= 50; i++) {
-                                        var option = document.createElement('option');
-                                        option.value = i;
-                                        option.textContent = i;
-                                        select.appendChild(option);
-                                    }
-                                });
-                            </script>
-                        </select>
-                    </div>
+                    <select id="id" name="id" class="id-select">
+                        <option value="">Selecione</option>
+                        <!-- Gerar opções de 1 a 50 -->
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var select = document.getElementById('id');
+                                for (var i = 1; i <= 50; i++) {
+                                    var option = document.createElement('option');
+                                    option.value = i;
+                                    option.textContent = i;
+                                    select.appendChild(option);
+                                }
+                            });
+                        </script>
+                    </select>
                 </div>
             </div>
 
