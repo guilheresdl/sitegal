@@ -38,7 +38,7 @@ input, select, button {
 }
 
 button {
-    background-color: #28a745;
+    background-color: #007bff; /* Cor do botão */
     color: #fff;
     border: none;
     cursor: pointer;
@@ -46,7 +46,7 @@ button {
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #0056b3; /* Cor do botão quando hover */
 }
 
 .hidden {
