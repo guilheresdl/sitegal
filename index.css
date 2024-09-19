@@ -43,28 +43,26 @@ label {
 }
 
 input[type="text"], input[type="date"], select {
-    width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    height: 40px; /* Definindo a altura uniforme */
 }
 
 .ss-id-group {
     display: flex;
     align-items: center;
+    gap: 5px; /* Espaço entre os elementos */
 }
 
 .ss-input {
-    flex: 1;
-    margin-right: 5px;
-    height: 40px; /* Definindo a altura uniforme */
+    width: 150px; /* Ajuste para aceitar cerca de 10 dígitos */
+    height: 40px;
 }
 
 .id-select-group {
     display: flex;
     flex-direction: column;
-    margin-left: 5px;
+    margin-left: 0; /* Removendo a margem à esquerda */
 }
 
 .id-label {
@@ -72,8 +70,8 @@ input[type="text"], input[type="date"], select {
 }
 
 .id-select {
-    width: 80px;
-    height: 40px; /* Definindo a altura uniforme */
+    width: 70px; /* Ajuste o tamanho conforme necessário */
+    height: 40px;
 }
 
 #opcoesPeça {
