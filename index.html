@@ -16,19 +16,24 @@
             <label for="equipamento">Nome do Equipamento:</label>
             <input type="text" id="equipamento" name="equipamento" required>
 
-            <label for="ss">Número SS:</label>
-            <input type="text" id="ss" name="ss" required>
-
-            <label for="id">ID:</label>
-            <select id="id" name="id">
-                <!-- IDs de 1 a 50 -->
-                <option value="">Selecione</option>
-                <script>
-                    for (let i = 1; i <= 50; i++) {
-                        document.write('<option value="' + i + '">' + i + '</option>');
-                    }
-                </script>
-            </select>
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="ss">Número SS:</label>
+                    <input type="text" id="ss" name="ss" required>
+                </div>
+                <div class="input-wrapper">
+                    <label for="id">ID:</label>
+                    <select id="id" name="id">
+                        <!-- IDs de 1 a 50 -->
+                        <option value="">Selecione</option>
+                        <script>
+                            for (let i = 1; i <= 50; i++) {
+                                document.write('<option value="' + i + '">' + i + '</option>');
+                            }
+                        </script>
+                    </select>
+                </div>
+            </div>
 
             <label for="responsavel">Nome do Responsável:</label>
             <input type="text" id="responsavel" name="responsavel" required>
