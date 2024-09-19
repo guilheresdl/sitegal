@@ -9,34 +9,32 @@
 <body>
     <div class="container">
         <h1>Formulário de Peritagem</h1>
-        <form id="peritagem-form">
-            <label for="cliente">Nome do Cliente:</label>
-            <input type="text" id="cliente" name="cliente" required>
-            
-            <label for="equipamento">Nome do Equipamento:</label>
-            <input type="text" id="equipamento" name="equipamento" required>
+        <form id="inspection-form">
+            <label for="client-name">Nome do Cliente:</label>
+            <input type="text" id="client-name" name="client-name" required>
 
-            <label for="ss">SS:</label>
+            <label for="equipment-name">Nome do Equipamento:</label>
+            <input type="text" id="equipment-name" name="equipment-name" required>
+
+            <label for="ss">Número SS:</label>
             <input type="text" id="ss" name="ss" required>
-            
+
             <label for="id">ID:</label>
             <select id="id" name="id">
-                <script>
-                    for (let i = 1; i <= 50; i++) {
-                        document.write(`<option value="${i}">${i}</option>`);
-                    }
-                </script>
+                <!-- IDs de 1 a 50 -->
+                <option value="">Selecione</option>
+                <!-- Gerado dinamicamente -->
             </select>
-            
-            <label for="responsavel">Nome do Responsável:</label>
-            <input type="text" id="responsavel" name="responsavel" required>
 
-            <label for="data">Data da Peritagem:</label>
-            <input type="text" id="data" name="data" readonly>
-            
-            <label for="peças">Adicionar Peça:</label>
-            <select id="pecas" name="pecas">
-                <option value="">Selecione uma peça</option>
+            <label for="technician">Responsável pela Peritagem:</label>
+            <input type="text" id="technician" name="technician" required>
+
+            <label for="date">Data:</label>
+            <input type="date" id="date" name="date" readonly>
+
+            <label for="part-type">Tipo de Peça:</label>
+            <select id="part-type" name="part-type">
+                <option value="">Selecione</option>
                 <option value="haste">Haste</option>
                 <option value="camisa">Camisa</option>
                 <option value="olhal">Olhal</option>
@@ -46,33 +44,30 @@
                 <option value="espaco">Espaçador</option>
                 <option value="vedacao">Jogo de Vedação</option>
             </select>
-            
-            <button type="button" onclick="adicionarPeca()">Adicionar Peça</button>
-            
-            <div id="pecas-info"></div>
-            
-            <div>
-                <button type="submit">Enviar</button>
+
+            <div id="part-options" class="hidden">
+                <!-- Opções específicas e campos de dimensões serão inseridos aqui pelo JavaScript -->
             </div>
+
+            <button type="button" onclick="addPart()">Adicionar Peça</button>
         </form>
 
         <h2>Resumo das Peças</h2>
-        <table id="pecas-tabela">
+        <table id="summary-table">
             <thead>
                 <tr>
-                    <th>Peça</th>
-                    <th>Ação</th>
+                    <th>Tipo de Peça</th>
+                    <th>Ações Realizadas</th>
                     <th>Diâmetro (mm)</th>
                     <th>Comprimento (mm)</th>
                     <th>Largura (mm)</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- As peças adicionadas serão exibidas aqui -->
+                <!-- Linhas adicionadas dinamicamente -->
             </tbody>
         </table>
     </div>
-
     <script src="index.js"></script>
 </body>
 </html>
