@@ -9,12 +9,12 @@
 <body>
     <div class="container">
         <h1>Formulário de Peritagem</h1>
-        <form id="inspection-form">
-            <label for="client-name">Nome do Cliente:</label>
-            <input type="text" id="client-name" name="client-name" required>
+        <form id="peritagemForm">
+            <label for="cliente">Nome do Cliente:</label>
+            <input type="text" id="cliente" name="cliente" required>
 
-            <label for="equipment-name">Nome do Equipamento:</label>
-            <input type="text" id="equipment-name" name="equipment-name" required>
+            <label for="equipamento">Nome do Equipamento:</label>
+            <input type="text" id="equipamento" name="equipamento" required>
 
             <label for="ss">Número SS:</label>
             <input type="text" id="ss" name="ss" required>
@@ -23,17 +23,21 @@
             <select id="id" name="id">
                 <!-- IDs de 1 a 50 -->
                 <option value="">Selecione</option>
-                <!-- Gerado dinamicamente -->
+                <script>
+                    for (let i = 1; i <= 50; i++) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                </script>
             </select>
 
-            <label for="technician">Responsável pela Peritagem:</label>
-            <input type="text" id="technician" name="technician" required>
+            <label for="responsavel">Nome do Responsável:</label>
+            <input type="text" id="responsavel" name="responsavel" required>
 
-            <label for="date">Data:</label>
-            <input type="date" id="date" name="date" readonly>
+            <label for="data">Data da Peritagem:</label>
+            <input type="date" id="data" name="data" required>
 
-            <label for="part-type">Tipo de Peça:</label>
-            <select id="part-type" name="part-type">
+            <label for="pecas">Selecionar Peça:</label>
+            <select id="pecas" name="pecas" onchange="mostrarOpcoes()">
                 <option value="">Selecione</option>
                 <option value="haste">Haste</option>
                 <option value="camisa">Camisa</option>
@@ -45,29 +49,37 @@
                 <option value="vedacao">Jogo de Vedação</option>
             </select>
 
-            <div id="part-options" class="hidden">
-                <!-- Opções específicas e campos de dimensões serão inseridos aqui pelo JavaScript -->
+            <div id="opcoesPeca" class="hidden">
+                <label for="acoes">Ações:</label>
+                <select id="acoes" name="acoes" multiple>
+                    <!-- Opções vão ser preenchidas pelo JavaScript -->
+                </select>
+
+                <label for="dimensoes">Dimensões:</label>
+                <input type="number" id="diametro" name="diametro" placeholder="Diâmetro (mm)">
+                <input type="number" id="comprimento" name="comprimento" placeholder="Comprimento (mm)">
+                <input type="number" id="largura" name="largura" placeholder="Largura (mm)">
             </div>
 
-            <button type="button" onclick="addPart()">Adicionar Peça</button>
+            <button type="button" onclick="adicionarPeca()">Adicionar Peça</button>
         </form>
 
-        <h2>Resumo das Peças</h2>
-        <table id="summary-table">
+        <table id="tabelaPecas">
             <thead>
                 <tr>
-                    <th>Tipo de Peça</th>
-                    <th>Ações Realizadas</th>
+                    <th>Peça</th>
+                    <th>Ações</th>
                     <th>Diâmetro (mm)</th>
                     <th>Comprimento (mm)</th>
                     <th>Largura (mm)</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Linhas adicionadas dinamicamente -->
+                <!-- Linhas serão adicionadas pelo JavaScript -->
             </tbody>
         </table>
     </div>
+
     <script src="index.js"></script>
 </body>
 </html>
