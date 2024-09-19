@@ -55,11 +55,17 @@ button:hover {
 
 .input-group {
     display: flex;
-    gap: 10px;
+    gap: 0; /* Remove o espaço entre os itens */
+    align-items: center; /* Alinha verticalmente */
 }
 
 .input-wrapper {
     flex: 1;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+    margin-right: 10px; /* Espaço entre os campos */
 }
 
 .hidden {
