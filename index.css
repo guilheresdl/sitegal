@@ -31,12 +31,21 @@ label {
     font-weight: bold;
 }
 
-input[type="text"], input[type="number"], input[type="date"], select {
-    width: 100%;
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input,
+.input-group select {
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+}
+
+.input-group input[type="text"] {
+    margin-right: -1px; /* Remove the space between the input and select */
 }
 
 button {
@@ -51,21 +60,6 @@ button {
 
 button:hover {
     background-color: #0056b3;
-}
-
-.input-group {
-    display: flex;
-    gap: 0; /* Remove o espaço entre os itens */
-    align-items: center; /* Alinha verticalmente */
-}
-
-.input-wrapper {
-    flex: 1;
-}
-
-.input-wrapper input,
-.input-wrapper select {
-    margin-right: 10px; /* Espaço entre os campos */
 }
 
 .hidden {
