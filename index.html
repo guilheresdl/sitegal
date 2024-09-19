@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,66 +9,70 @@
 <body>
     <div class="container">
         <h1>Formulário de Peritagem</h1>
-        <form id="form-peritagem">
-            <div class="form-group">
-                <label for="nome-cliente">Nome do Cliente</label>
-                <input type="text" id="nome-cliente" name="nome-cliente" required>
-            </div>
-            <div class="form-group">
-                <label for="nome-equipamento">Nome do Equipamento</label>
-                <input type="text" id="nome-equipamento" name="nome-equipamento" required>
-            </div>
-            <div class="form-group">
-                <label for="ss">SS</label>
-                <input type="text" id="ss" name="ss" required>
-            </div>
-            <div class="form-group">
-                <label for="id">ID</label>
-                <select id="id" name="id">
-                    <!-- Options from 1 to 50 -->
-                    <script>
-                        for (let i = 1; i <= 50; i++) {
-                            document.write(`<option value="${i}">${i}</option>`);
-                        }
-                    </script>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="peças">Peças</label>
-                <select id="peças" name="peças">
-                    <option value="">Selecione uma peça</option>
-                    <option value="haste">Haste</option>
-                    <option value="camisa">Camisa</option>
-                    <option value="olhal">Olhal</option>
-                    <option value="flange">Flange</option>
-                    <option value="fundo">Fundo</option>
-                    <option value="êmbolo">Êmbolo</option>
-                    <option value="espaçador">Espaçador</option>
-                    <option value="jogo-vedacao">Jogo de Vedação</option>
-                </select>
-            </div>
-            <div id="peca-info" class="form-group hidden">
-                <!-- Info about selected piece will be displayed here -->
-            </div>
-            <div class="form-group">
-                <button type="button" id="adicionar-peca">Adicionar Peça</button>
+        <form id="peritagem-form">
+            <label for="cliente">Nome do Cliente:</label>
+            <input type="text" id="cliente" name="cliente" required>
+            
+            <label for="equipamento">Nome do Equipamento:</label>
+            <input type="text" id="equipamento" name="equipamento" required>
+
+            <label for="ss">SS:</label>
+            <input type="text" id="ss" name="ss" required>
+            
+            <label for="id">ID:</label>
+            <select id="id" name="id">
+                <script>
+                    for (let i = 1; i <= 50; i++) {
+                        document.write(`<option value="${i}">${i}</option>`);
+                    }
+                </script>
+            </select>
+            
+            <label for="responsavel">Nome do Responsável:</label>
+            <input type="text" id="responsavel" name="responsavel" required>
+
+            <label for="data">Data da Peritagem:</label>
+            <input type="text" id="data" name="data" readonly>
+            
+            <label for="peças">Adicionar Peça:</label>
+            <select id="pecas" name="pecas">
+                <option value="">Selecione uma peça</option>
+                <option value="haste">Haste</option>
+                <option value="camisa">Camisa</option>
+                <option value="olhal">Olhal</option>
+                <option value="flange">Flange</option>
+                <option value="fundo">Fundo</option>
+                <option value="embolo">Êmbolo</option>
+                <option value="espaco">Espaçador</option>
+                <option value="vedacao">Jogo de Vedação</option>
+            </select>
+            
+            <button type="button" onclick="adicionarPeca()">Adicionar Peça</button>
+            
+            <div id="pecas-info"></div>
+            
+            <div>
+                <button type="submit">Enviar</button>
             </div>
         </form>
-        <table id="tabela-pecas">
+
+        <h2>Resumo das Peças</h2>
+        <table id="pecas-tabela">
             <thead>
                 <tr>
                     <th>Peça</th>
-                    <th>Ações</th>
+                    <th>Ação</th>
                     <th>Diâmetro (mm)</th>
                     <th>Comprimento (mm)</th>
                     <th>Largura (mm)</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Peças serão adicionadas aqui -->
+                <!-- As peças adicionadas serão exibidas aqui -->
             </tbody>
         </table>
     </div>
+
     <script src="index.js"></script>
 </body>
 </html>
