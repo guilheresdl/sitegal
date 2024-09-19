@@ -51,7 +51,6 @@ input[type="text"], input[type="date"], select {
 .ss-id-group {
     display: flex;
     align-items: center;
-    gap: 5px; /* Espaço entre os elementos */
 }
 
 .ss-input {
@@ -59,19 +58,10 @@ input[type="text"], input[type="date"], select {
     height: 40px;
 }
 
-.id-select-group {
-    display: flex;
-    flex-direction: column;
-    margin-left: 0; /* Removendo a margem à esquerda */
-}
-
-.id-label {
-    margin-bottom: 5px;
-}
-
 .id-select {
-    width: 70px; /* Ajuste o tamanho conforme necessário */
+    width: 80px; /* Ajuste o tamanho conforme necessário */
     height: 40px;
+    margin-left: 5px; /* Espaço entre a caixa de texto SS e a caixa de seleção */
 }
 
 #opcoesPeça {
