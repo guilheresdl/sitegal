@@ -1,76 +1,62 @@
-// index.js
+document.addEventListener('DOMContentLoaded', () => {
+    const dataInput = document.getElementById('data');
+    const hoje = new Date().toISOString().split('T')[0];
+    dataInput.value = hoje;
+});
 
-document.addEventListener('DOMContentLoaded', function() {
-    const pecasSelect = document.getElementById('peças');
-    const pecaInfo = document.getElementById('peca-info');
-    const tabelaPecasBody = document.querySelector('#tabela-pecas tbody');
-    const adicionarPecaButton = document.getElementById('adicionar-peca');
+function adicionarPeca() {
+    const selectPeca = document.getElementById('pecas');
+    const pecasInfoDiv = document.getElementById('pecas-info');
+    
+    const peca = selectPeca.value;
+    if (peca === "") {
+        alert("Selecione uma peça.");
+        return;
+    }
 
-    const pecasDados = {
-        "haste": { acoes: ["fabricar", "cromar", "rec. rosca"], dimensoes: ["diâmetro", "comprimento", "largura"] },
-        "camisa": { acoes: ["fabricar", "brunir", "rec. rosca"], dimensoes: ["diâmetro", "comprimento", "largura"] },
-        "olhal": { acoes: ["fabricar", "rec. furo", "rec. rosca"], dimensoes: ["diâmetro", "comprimento", "largura"] },
-        "flange": { acoes: ["fabricar", "recuperar"], dimensoes: ["diâmetro", "comprimento", "largura"] },
-        "fundo": { acoes: ["fabricar", "rec. olhal"], dimensoes: ["diâmetro", "comprimento", "largura"] },
-        "êmbolo": { acoes: ["fabricar", "rec. olhal", "rec. rosca"], dimensoes: ["diâmetro", "comprimento", "largura"] },
-        "espaçador": { acoes: ["fabricar", "recuperar"], dimensoes: ["diâmetro", "comprimento", "largura"] },
-        "jogo-vedacao": { acoes: ["substituir", "cliente vai fornecer"], dimensoes: [] }
+    const informacoes = {
+        haste: { acoes: ["fabricar", "cromar", "rec. rosca"], dimensoes: true },
+        camisa: { acoes: ["fabricar", "brunir", "rec. rosca"], dimensoes: true },
+        olhal: { acoes: ["fabricar", "rec. furo", "rec. rosca"], dimensoes: true },
+        flange: { acoes: ["fabricar", "recuperar"], dimensoes: true },
+        fundo: { acoes: ["fabricar", "rec. olhal"], dimensoes: true },
+        embolo: { acoes: ["fabricar", "rec. olhal", "rec. rosca"], dimensoes: true },
+        espaco: { acoes: ["fabricar", "recuperar"], dimensoes: true },
+        vedacao: { acoes: ["Substituir", "Cliente Vai Fornecer"], dimensoes: false }
     };
 
-    pecasSelect.addEventListener('change', function() {
-        const selectedPeca = pecasSelect.value;
-        if (selectedPeca) {
-            const dados = pecasDados[selectedPeca];
-            pecaInfo.innerHTML = `
-                <h3>Informações da Peça: ${selectedPeca.charAt(0).toUpperCase() + selectedPeca.slice(1)}</h3>
-                <p><strong>Ações possíveis:</strong> ${dados.acoes.join(', ')}</p>
-                ${dados.dimensoes.length > 0 ? `
-                <div class="form-group">
-                    <label for="diametro">Diâmetro (mm)</label>
-                    <input type="number" id="diametro" name="diametro">
-                </div>
-                <div class="form-group">
-                    <label for="comprimento">Comprimento (mm)</label>
-                    <input type="number" id="comprimento" name="comprimento">
-                </div>
-                <div class="form-group">
-                    <label for="largura">Largura (mm)</label>
-                    <input type="number" id="largura" name="largura">
-                </div>
-                ` : ''}
-            `;
-            pecaInfo.classList.remove('hidden');
-        } else {
-            pecaInfo.classList.add('hidden');
-        }
-    });
+    const pecaInfo = informacoes[peca];
+    if (!pecaInfo) return;
 
-    adicionarPecaButton.addEventListener('click', function() {
-        const peca = pecasSelect.value;
-        const diametro = document.getElementById('diametro') ? document.getElementById('diametro').value : '';
-        const comprimento = document.getElementById('comprimento') ? document.getElementById('comprimento').value : '';
-        const largura = document.getElementById('largura') ? document.getElementById('largura').value : '';
+    const tableBody = document.querySelector('#pecas-tabela tbody');
+    const tr = document.createElement('tr');
 
-        if (peca) {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${peca.charAt(0).toUpperCase() + peca.slice(1)}</td>
-                <td>${pecasDados[peca].acoes.join(', ')}</td>
-                <td>${diametro} mm</td>
-                <td>${comprimento} mm</td>
-                <td>${largura} mm</td>
-            `;
-            tabelaPecasBody.appendChild(tr);
+    const tdPeca = document.createElement('td');
+    tdPeca.textContent = peca;
+    tr.appendChild(tdPeca);
 
-            // Reset the form fields
-            pecasSelect.value = '';
-            pecaInfo.innerHTML = '';
-            pecaInfo.classList.add('hidden');
-            if (document.getElementById('diametro')) document.getElementById('diametro').value = '';
-            if (document.getElementById('comprimento')) document.getElementById('comprimento').value = '';
-            if (document.getElementById('largura')) document.getElementById('largura').value = '';
-        } else {
-            alert('Por favor, selecione uma peça.');
-        }
-    });
-});
+    const tdAcao = document.createElement('td');
+    tdAcao.textContent = pecaInfo.acoes.join(', ');
+    tr.appendChild(tdAcao);
+
+    if (pecaInfo.dimensoes) {
+        const tdDiametro = document.createElement('td');
+        tdDiametro.innerHTML = `<input type="text" placeholder="Diâmetro (mm)" />`;
+        tr.appendChild(tdDiametro);
+
+        const tdComprimento = document.createElement('td');
+        tdComprimento.innerHTML = `<input type="text" placeholder="Comprimento (mm)" />`;
+        tr.appendChild(tdComprimento);
+
+        const tdLargura = document.createElement('td');
+        tdLargura.innerHTML = `<input type="text" placeholder="Largura (mm)" />`;
+        tr.appendChild(tdLargura);
+    } else {
+        tr.innerHTML += `<td></td><td></td><td></td>`;
+    }
+
+    tableBody.appendChild(tr);
+    
+    document.getElementById('peritagem-form').reset();
+    document.getElementById('data').value = hoje;
+}
