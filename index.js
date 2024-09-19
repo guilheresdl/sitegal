@@ -1,57 +1,82 @@
-// Função para adicionar a peça na tabela de resumo
-function adicionarPeca() {
-    // Captura os valores do formulário
-    const peca = document.getElementById('peca').value;
-    const acoes = document.querySelectorAll('input[name="acao"]:checked');
-    const diametro = document.getElementById('diametro').value;
-    const comprimento = document.getElementById('comprimento').value;
-    const largura = document.getElementById('largura').value;
-    let acoesSelecionadas = [];
+// Script para preencher o campo de ID e configurar a data
+document.addEventListener('DOMContentLoaded', function () {
+    const idSelect = document.getElementById('id');
+    const currentDate = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = currentDate;
 
-    // Percorre as opções de ação selecionadas
-    acoes.forEach((acao) => {
-        acoesSelecionadas.push(acao.value);
-    });
-
-    // Cria uma nova linha para a tabela
-    const tabela = document.getElementById('tabelaResumo');
-    const novaLinha = tabela.insertRow();
-
-    // Insere as colunas com os valores
-    const colunaPeca = novaLinha.insertCell(0);
-    colunaPeca.textContent = peca;
-
-    const colunaAcoes = novaLinha.insertCell(1);
-    colunaAcoes.textContent = acoesSelecionadas.join(', ');
-
-    const colunaDiametro = novaLinha.insertCell(2);
-    colunaDiametro.textContent = diametro;
-
-    const colunaComprimento = novaLinha.insertCell(3);
-    colunaComprimento.textContent = comprimento;
-
-    const colunaLargura = novaLinha.insertCell(4);
-    colunaLargura.textContent = largura;
-
-    // Limpa o formulário após adicionar a peça
-    document.getElementById('formPeritagem').reset();
-}
-
-// Função para preencher o campo de ID automaticamente
-function preencherId() {
-    const ss = document.getElementById('ss').value;
-    const id = document.getElementById('id');
-    if (ss) {
-        id.value = ss + '-1'; // Exemplo simples para gerar ID baseado no SS
+    // Preencher as opções de ID de 1 a 50
+    for (let i = 1; i <= 50; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        idSelect.appendChild(option);
     }
-}
-
-// Define a data automaticamente
-document.addEventListener('DOMContentLoaded', () => {
-    const dataPeritagem = document.getElementById('dataPeritagem');
-    const hoje = new Date().toISOString().split('T')[0];
-    dataPeritagem.value = hoje;
 });
 
-// Adiciona evento ao botão de salvar peça
-document.getElementById('salvarPeca').addEventListener('click', adicionarPeca);
+function showOptions() {
+    const peçaSelect = document.getElementById('peçaSelect');
+    const peçaOptionsDiv = document.getElementById('peçaOptions');
+    const peça = peçaSelect.value;
+
+    let optionsHtml = '';
+
+    // Gerar opções com base na peça selecionada
+    switch (peça) {
+        case 'haste':
+            optionsHtml = `
+                <label>Opções para Haste:</label>
+                <label><input type="checkbox" value="fabricar"> Fabricar</label>
+                <label><input type="checkbox" value="cromar"> Cromar</label>
+                <label><input type="checkbox" value="rec-roca"> Rec. Rosca</label>
+                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"></label>
+                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"></label>
+                <label>Largura: <input type="text" class="largura" placeholder="Largura"></label>
+            `;
+            break;
+        case 'camisa':
+            optionsHtml = `
+                <label>Opções para Camisa:</label>
+                <label><input type="checkbox" value="fabricar"> Fabricar</label>
+                <label><input type="checkbox" value="brunir"> Brunir</label>
+                <label><input type="checkbox" value="rec-roca"> Rec. Rosca</label>
+                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"></label>
+                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"></label>
+                <label>Largura: <input type="text" class="largura" placeholder="Largura"></label>
+            `;
+            break;
+        // Adicione mais cases para outras peças
+        case 'vedacao':
+            optionsHtml = `
+                <label>Opções para Jogo de Vedação:</label>
+                <label><input type="checkbox" value="substituir"> Substituir</label>
+                <label><input type="checkbox" value="cliente"> Cliente Vai Fornecer</label>
+            `;
+            break;
+    }
+
+    peçaOptionsDiv.innerHTML = optionsHtml;
+}
+
+function addPiece() {
+    const peçaSelect = document.getElementById('peçaSelect');
+    const peçaOptionsDiv = document.getElementById('peçaOptions');
+    const resumoTable = document.getElementById('resumoTable').getElementsByTagName('tbody')[0];
+
+    const peça = peçaSelect.value;
+    const opções = Array.from(peçaOptionsDiv.querySelectorAll('input[type="checkbox"]:checked'))
+                        .map(el => el.value)
+                        .join(', ');
+    const diâmetro = peçaOptionsDiv.querySelector('.diametro') ? peçaOptionsDiv.querySelector('.diametro').value : '';
+    const comprimento = peçaOptionsDiv.querySelector('.comprimento') ? peçaOptionsDiv.querySelector('.comprimento').value : '';
+    const largura = peçaOptionsDiv.querySelector('.largura') ? peçaOptionsDiv.querySelector('.largura').value : '';
+
+    // Adicionar a peça à tabela de resumo
+    if (peça) {
+        const row = resumoTable.insertRow();
+        row.insertCell().textContent = peça.charAt(0).toUpperCase() + peça.slice(1);
+        row.insertCell().textContent = opções;
+        row.insertCell().textContent = diâmetro;
+        row.insertCell().textContent = comprimento;
+        row.insertCell().textContent = largura;
+    }
+}
