@@ -1,145 +1,76 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Preencher as opções de ID de 1 a 50
-    const idSelect = document.getElementById('id');
-    for (let i = 1; i <= 50; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = i;
-        idSelect.appendChild(option);
-    }
+// index.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    const pecasSelect = document.getElementById('peças');
+    const pecaInfo = document.getElementById('peca-info');
+    const tabelaPecasBody = document.querySelector('#tabela-pecas tbody');
+    const adicionarPecaButton = document.getElementById('adicionar-peca');
+
+    const pecasDados = {
+        "haste": { acoes: ["fabricar", "cromar", "rec. rosca"], dimensoes: ["diâmetro", "comprimento", "largura"] },
+        "camisa": { acoes: ["fabricar", "brunir", "rec. rosca"], dimensoes: ["diâmetro", "comprimento", "largura"] },
+        "olhal": { acoes: ["fabricar", "rec. furo", "rec. rosca"], dimensoes: ["diâmetro", "comprimento", "largura"] },
+        "flange": { acoes: ["fabricar", "recuperar"], dimensoes: ["diâmetro", "comprimento", "largura"] },
+        "fundo": { acoes: ["fabricar", "rec. olhal"], dimensoes: ["diâmetro", "comprimento", "largura"] },
+        "êmbolo": { acoes: ["fabricar", "rec. olhal", "rec. rosca"], dimensoes: ["diâmetro", "comprimento", "largura"] },
+        "espaçador": { acoes: ["fabricar", "recuperar"], dimensoes: ["diâmetro", "comprimento", "largura"] },
+        "jogo-vedacao": { acoes: ["substituir", "cliente vai fornecer"], dimensoes: [] }
+    };
+
+    pecasSelect.addEventListener('change', function() {
+        const selectedPeca = pecasSelect.value;
+        if (selectedPeca) {
+            const dados = pecasDados[selectedPeca];
+            pecaInfo.innerHTML = `
+                <h3>Informações da Peça: ${selectedPeca.charAt(0).toUpperCase() + selectedPeca.slice(1)}</h3>
+                <p><strong>Ações possíveis:</strong> ${dados.acoes.join(', ')}</p>
+                ${dados.dimensoes.length > 0 ? `
+                <div class="form-group">
+                    <label for="diametro">Diâmetro (mm)</label>
+                    <input type="number" id="diametro" name="diametro">
+                </div>
+                <div class="form-group">
+                    <label for="comprimento">Comprimento (mm)</label>
+                    <input type="number" id="comprimento" name="comprimento">
+                </div>
+                <div class="form-group">
+                    <label for="largura">Largura (mm)</label>
+                    <input type="number" id="largura" name="largura">
+                </div>
+                ` : ''}
+            `;
+            pecaInfo.classList.remove('hidden');
+        } else {
+            pecaInfo.classList.add('hidden');
+        }
+    });
+
+    adicionarPecaButton.addEventListener('click', function() {
+        const peca = pecasSelect.value;
+        const diametro = document.getElementById('diametro') ? document.getElementById('diametro').value : '';
+        const comprimento = document.getElementById('comprimento') ? document.getElementById('comprimento').value : '';
+        const largura = document.getElementById('largura') ? document.getElementById('largura').value : '';
+
+        if (peca) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${peca.charAt(0).toUpperCase() + peca.slice(1)}</td>
+                <td>${pecasDados[peca].acoes.join(', ')}</td>
+                <td>${diametro} mm</td>
+                <td>${comprimento} mm</td>
+                <td>${largura} mm</td>
+            `;
+            tabelaPecasBody.appendChild(tr);
+
+            // Reset the form fields
+            pecasSelect.value = '';
+            pecaInfo.innerHTML = '';
+            pecaInfo.classList.add('hidden');
+            if (document.getElementById('diametro')) document.getElementById('diametro').value = '';
+            if (document.getElementById('comprimento')) document.getElementById('comprimento').value = '';
+            if (document.getElementById('largura')) document.getElementById('largura').value = '';
+        } else {
+            alert('Por favor, selecione uma peça.');
+        }
+    });
 });
-
-function showOptions() {
-    const peçaSelect = document.getElementById('peçaSelect');
-    const peçaOptionsDiv = document.getElementById('peçaOptions');
-    const peça = peçaSelect.value;
-
-    let optionsHtml = '';
-
-    switch (peça) {
-        case 'haste':
-            optionsHtml = `
-                <label>Opções para Haste:</label>
-                <label><input type="checkbox" class="opcao" value="fabricar"> Fabricar</label>
-                <label><input type="checkbox" class="opcao" value="cromar"> Cromar</label>
-                <label><input type="checkbox" class="opcao" value="rec-roca"> Rec. Rosca</label>
-                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"> mm</label>
-                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"> mm</label>
-                <label>Largura: <input type="text" class="largura" placeholder="Largura"> mm</label>
-            `;
-            break;
-        case 'camisa':
-            optionsHtml = `
-                <label>Opções para Camisa:</label>
-                <label><input type="checkbox" class="opcao" value="fabricar"> Fabricar</label>
-                <label><input type="checkbox" class="opcao" value="brunir"> Brunir</label>
-                <label><input type="checkbox" class="opcao" value="rec-roca"> Rec. Rosca</label>
-                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"> mm</label>
-                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"> mm</label>
-                <label>Largura: <input type="text" class="largura" placeholder="Largura"> mm</label>
-            `;
-            break;
-        case 'olhal':
-            optionsHtml = `
-                <label>Opções para Olhal:</label>
-                <label><input type="checkbox" class="opcao" value="fabricar"> Fabricar</label>
-                <label><input type="checkbox" class="opcao" value="rec-furo"> Rec. Furo</label>
-                <label><input type="checkbox" class="opcao" value="rec-roca"> Rec. Rosca</label>
-                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"> mm</label>
-                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"> mm</label>
-                <label>Largura: <input type="text" class="largura" placeholder="Largura"> mm</label>
-            `;
-            break;
-        case 'flange':
-            optionsHtml = `
-                <label>Opções para Flange:</label>
-                <label><input type="checkbox" class="opcao" value="fabricar"> Fabricar</label>
-                <label><input type="checkbox" class="opcao" value="recuperar"> Recuperar</label>
-                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"> mm</label>
-                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"> mm</label>
-                <label>Largura: <input type="text" class="largura" placeholder="Largura"> mm</label>
-            `;
-            break;
-        case 'fundo':
-            optionsHtml = `
-                <label>Opções para Fundo:</label>
-                <label><input type="checkbox" class="opcao" value="fabricar"> Fabricar</label>
-                <label><input type="checkbox" class="opcao" value="rec-olhal"> Rec. Olhal</label>
-                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"> mm</label>
-                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"> mm</label>
-                <label>Largura: <input type="text" class="largura" placeholder="Largura"> mm</label>
-            `;
-            break;
-        case 'embolo':
-            optionsHtml = `
-                <label>Opções para Êmbolo:</label>
-                <label><input type="checkbox" class="opcao" value="fabricar"> Fabricar</label>
-                <label><input type="checkbox" class="opcao" value="rec-olhal"> Rec. Olhal</label>
-                <label><input type="checkbox" class="opcao" value="rec-roca"> Rec. Rosca</label>
-                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"> mm</label>
-                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"> mm</label>
-                <label>Largura: <input type="text" class="largura" placeholder="Largura"> mm</label>
-            `;
-            break;
-        case 'espaco':
-            optionsHtml = `
-                <label>Opções para Espaçador:</label>
-                <label><input type="checkbox" class="opcao" value="fabricar"> Fabricar</label>
-                <label><input type="checkbox" class="opcao" value="recuperar"> Recuperar</label>
-                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"> mm</label>
-                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"> mm</label>
-                <label>Largura: <input type="text" class="largura" placeholder="Largura"> mm</label>
-            `;
-            break;
-        case 'bucha':
-            optionsHtml = `
-                <label>Opções para Bucha Guia:</label>
-                <label><input type="checkbox" class="opcao" value="fabricar"> Fabricar</label>
-                <label><input type="checkbox" class="opcao" value="recuperar"> Recuperar</label>
-                <label>Diâmetro: <input type="text" class="diametro" placeholder="Diâmetro"> mm</label>
-                <label>Comprimento: <input type="text" class="comprimento" placeholder="Comprimento"> mm</label>
-                <label>Largura: <input type="text" class="largura" placeholder="Largura"> mm</label>
-            `;
-            break;
-        case 'vedacao':
-            optionsHtml = `
-                <label>Opções para Jogo de Vedação:</label>
-                <label><input type="checkbox" class="opcao" value="substituir"> Substituir</label>
-                <label><input type="checkbox" class="opcao" value="cliente-fornecer"> Cliente Vai Fornecer</label>
-            `;
-            break;
-        default:
-            optionsHtml = '';
-    }
-
-    peçaOptionsDiv.innerHTML = optionsHtml;
-}
-
-function addPiece() {
-    const peçaSelect = document.getElementById('peçaSelect');
-    const peça = peçaSelect.value;
-    const opcoes = Array.from(document.querySelectorAll('.opcao:checked')).map(el => el.value).join(', ');
-    const diametro = document.querySelector('.diametro') ? document.querySelector('.diametro').value : '';
-    const comprimento = document.querySelector('.comprimento') ? document.querySelector('.comprimento').value : '';
-    const largura = document.querySelector('.largura') ? document.querySelector('.largura').value : '';
-
-    if (!peça) {
-        alert('Selecione uma peça.');
-        return;
-    }
-
-    const tableBody = document.querySelector('#resumoTable tbody');
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${peça}</td>
-        <td>${opcoes}</td>
-        <td>${diametro}</td>
-        <td>${comprimento}</td>
-        <td>${largura}</td>
-    `;
-    tableBody.appendChild(row);
-
-    // Resetar o formulário
-    document.getElementById('peritagemForm').reset();
-    document.getElementById('peçaOptions').innerHTML = '';
-}
