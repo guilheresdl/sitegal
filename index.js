@@ -1,7 +1,11 @@
 // index.js
 
 // Função para preencher a data atual
-document.getElementById('dataPeritagem').value = new Date().toISOString().split('T')[0];
+document.addEventListener('DOMContentLoaded', function() {
+    const dataInput = document.getElementById('dataPeritagem');
+    const hoje = new Date().toISOString().split('T')[0];
+    dataInput.value = hoje;
+});
 
 document.getElementById('peça').addEventListener('change', function() {
     const pecaSelecionada = this.value;
