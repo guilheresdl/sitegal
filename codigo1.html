@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Peritagem</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link para o CSS -->
+</head>
+
+<body>
+    <div class="container">
+        <h1>Formulário de Peritagem</h1>
+
+        <form id="peritagemForm">
+            <div class="form-group">
+                <label for="cliente">Nome do Cliente:</label>
+                <input type="text" id="cliente" name="cliente" required>
+            </div>
+
+            <div class="ss-id-container">
+                <div class="ss-container form-group">
+                    <label for="ss">SS:</label>
+                    <input type="text" id="ss" name="ss" required>
+                </div>
+                <div class="id-container form-group">
+                    <label for="id">ID:</label>
+                    <select id="id" name="id" required></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="data">Data da Peritagem:</label>
+                <input type="date" id="data" name="data" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="tecnico">Técnico Responsável:</label>
+                <input type="text" id="tecnico" name="tecnico" required>
+            </div>
+
+            <div class="form-group">
+                <label for="peçaSelect">Selecione a Peça:</label>
+                <select id="peçaSelect" name="peça" onchange="showOptions()" required>
+                    <option value="" disabled selected>Selecione uma peça</option>
+                    <option value="haste">Haste</option>
+                    <option value="camisa">Camisa</option>
+                    <option value="olhal">Olhal</option>
+                    <option value="flange">Flange</option>
+                    <option value="fundo">Fundo</option>
+                    <option value="embolo">Êmbolo</option>
+                    <option value="espaco">Espaçador</option>
+                    <option value="bucha">Bucha Guia</option>
+                    <option value="vedacao">Jogo de Vedação</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="peçaOptions"></div>
+
+            <button type="button" onclick="addPiece()">Salvar Peça</button>
+        </form>
+
+        <table id="resumoTable">
+            <thead>
+                <tr>
+                    <th>Peça</th>
+                    <th>Opções</th>
+                    <th>Diâmetro</th>
+                    <th>Comprimento</th>
+                    <th>Largura</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Peças adicionadas serão exibidas aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script> <!-- Link para o JavaScript -->
+</body>
+
+</html>
