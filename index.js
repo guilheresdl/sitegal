@@ -1,62 +1,73 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const dataInput = document.getElementById('data');
-    const hoje = new Date().toISOString().split('T')[0];
-    dataInput.value = hoje;
-});
+/* index.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
 
-function adicionarPeca() {
-    const selectPeca = document.getElementById('pecas');
-    const pecasInfoDiv = document.getElementById('pecas-info');
-    
-    const peca = selectPeca.value;
-    if (peca === "") {
-        alert("Selecione uma peça.");
-        return;
-    }
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    const informacoes = {
-        haste: { acoes: ["fabricar", "cromar", "rec. rosca"], dimensoes: true },
-        camisa: { acoes: ["fabricar", "brunir", "rec. rosca"], dimensoes: true },
-        olhal: { acoes: ["fabricar", "rec. furo", "rec. rosca"], dimensoes: true },
-        flange: { acoes: ["fabricar", "recuperar"], dimensoes: true },
-        fundo: { acoes: ["fabricar", "rec. olhal"], dimensoes: true },
-        embolo: { acoes: ["fabricar", "rec. olhal", "rec. rosca"], dimensoes: true },
-        espaco: { acoes: ["fabricar", "recuperar"], dimensoes: true },
-        vedacao: { acoes: ["Substituir", "Cliente Vai Fornecer"], dimensoes: false }
-    };
+h1 {
+    text-align: center;
+    color: #333;
+}
 
-    const pecaInfo = informacoes[peca];
-    if (!pecaInfo) return;
+form {
+    display: flex;
+    flex-direction: column;
+}
 
-    const tableBody = document.querySelector('#pecas-tabela tbody');
-    const tr = document.createElement('tr');
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
 
-    const tdPeca = document.createElement('td');
-    tdPeca.textContent = peca;
-    tr.appendChild(tdPeca);
+input, select, button {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 
-    const tdAcao = document.createElement('td');
-    tdAcao.textContent = pecaInfo.acoes.join(', ');
-    tr.appendChild(tdAcao);
+button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
 
-    if (pecaInfo.dimensoes) {
-        const tdDiametro = document.createElement('td');
-        tdDiametro.innerHTML = `<input type="text" placeholder="Diâmetro (mm)" />`;
-        tr.appendChild(tdDiametro);
+button:hover {
+    background-color: #218838;
+}
 
-        const tdComprimento = document.createElement('td');
-        tdComprimento.innerHTML = `<input type="text" placeholder="Comprimento (mm)" />`;
-        tr.appendChild(tdComprimento);
+.hidden {
+    display: none;
+}
 
-        const tdLargura = document.createElement('td');
-        tdLargura.innerHTML = `<input type="text" placeholder="Largura (mm)" />`;
-        tr.appendChild(tdLargura);
-    } else {
-        tr.innerHTML += `<td></td><td></td><td></td>`;
-    }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-    tableBody.appendChild(tr);
-    
-    document.getElementById('peritagem-form').reset();
-    document.getElementById('data').value = hoje;
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
 }
