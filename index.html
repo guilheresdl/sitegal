@@ -9,59 +9,63 @@
 <body>
     <div class="container">
         <h1>Formulário de Peritagem</h1>
-        <form id="peritagemForm">
+        <form id="form-peritagem">
             <div class="form-group">
-                <label for="nomeCliente">Nome do Cliente:</label>
-                <input type="text" id="nomeCliente" name="nomeCliente" required>
+                <label for="nome-cliente">Nome do Cliente</label>
+                <input type="text" id="nome-cliente" name="nome-cliente" required>
             </div>
             <div class="form-group">
-                <label for="nomeEquipamento">Nome do Equipamento:</label>
-                <input type="text" id="nomeEquipamento" name="nomeEquipamento" required>
+                <label for="nome-equipamento">Nome do Equipamento</label>
+                <input type="text" id="nome-equipamento" name="nome-equipamento" required>
             </div>
             <div class="form-group">
-                <label for="ss">SS:</label>
+                <label for="ss">SS</label>
                 <input type="text" id="ss" name="ss" required>
             </div>
             <div class="form-group">
-                <label for="id">ID:</label>
-                <select id="id" name="id" required>
-                    <!-- Opções de ID serão preenchidas pelo JavaScript -->
+                <label for="id">ID</label>
+                <select id="id" name="id">
+                    <!-- Options from 1 to 50 -->
+                    <script>
+                        for (let i = 1; i <= 50; i++) {
+                            document.write(`<option value="${i}">${i}</option>`);
+                        }
+                    </script>
                 </select>
             </div>
             <div class="form-group">
-                <label for="peçaSelect">Selecione a Peça:</label>
-                <select id="peçaSelect" name="peçaSelect" onchange="showOptions()" required>
+                <label for="peças">Peças</label>
+                <select id="peças" name="peças">
                     <option value="">Selecione uma peça</option>
                     <option value="haste">Haste</option>
                     <option value="camisa">Camisa</option>
                     <option value="olhal">Olhal</option>
                     <option value="flange">Flange</option>
-                    <option value="tampa">Tampa</option>
                     <option value="fundo">Fundo</option>
-                    <option value="embolo">Êmbolo</option>
-                    <option value="espaco">Espaçador</option>
-                    <option value="bucha">Bucha Guia</option>
-                    <option value="vedacao">Jogo de Vedação</option>
+                    <option value="êmbolo">Êmbolo</option>
+                    <option value="espaçador">Espaçador</option>
+                    <option value="jogo-vedacao">Jogo de Vedação</option>
                 </select>
             </div>
-            <div id="peçaOptions" class="form-group">
-                <!-- Opções específicas para cada peça serão inseridas aqui pelo JavaScript -->
+            <div id="peca-info" class="form-group hidden">
+                <!-- Info about selected piece will be displayed here -->
             </div>
-            <button type="button" onclick="addPiece()">Salvar Peça</button>
+            <div class="form-group">
+                <button type="button" id="adicionar-peca">Adicionar Peça</button>
+            </div>
         </form>
-
-        <table id="resumoTable">
+        <table id="tabela-pecas">
             <thead>
                 <tr>
                     <th>Peça</th>
-                    <th>Opções</th>
+                    <th>Ações</th>
                     <th>Diâmetro (mm)</th>
                     <th>Comprimento (mm)</th>
                     <th>Largura (mm)</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Peças adicionadas serão exibidas aqui -->
+                <!-- Peças serão adicionadas aqui -->
             </tbody>
         </table>
     </div>
